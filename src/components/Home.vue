@@ -5,7 +5,8 @@
           <p> {{ msg }} </p>
       </div>
       <div class="col-md-12 body">
-          <div class="row">
+        <input type="hidden" v-model="showJoin" />
+          <div class="row" id="join-room" v-if="showJoin == true">
             <div class="col-md-4">
               <div class="form-group">
                 <label for="name">
@@ -55,10 +56,21 @@ export default {
   data () {
     return {
       name: 'user' + Math.random(10).toString(36).substr(9),
-      room: Math.random(10000).toString(36).substr(2)
+      room: Math.random(10000).toString(36).substr(2),
+      showJoin: true
     }
   },
   methods: {
+     hideShowJoinRoom () {
+      if (this.showJoin) {
+        this.showJoin = false
+        console.log(this.showJoin)
+      }
+      else {
+        this.showJoin = true
+        console.log(this.showJoin)
+      }
+    },
     join (name, room) {
       const domain = 'meet.jit.si'
       const options = {
@@ -71,11 +83,21 @@ export default {
       vidApi.executeCommand('toggleAudio', [])
       vidApi.executeCommand('toggleVideo', [])
       vidApi.executeCommand('displayName', name)
+      vidApi.on('readyToClose', (evt) => {
+        this.hideShowJoinRoom()
+        //document.querySelector("#meet").style.display = 'none';
+        // Possibly dipose room vidApi.dispose()
+      })
+      this.hideShowJoinRoom()
+      //document.querySelector("#meet").style.display = 'block';
     }
   },
   computed: {
     function () {
-      return null
+      //console.log(showJoin)
+      return {
+        //
+      }
     }
   }
 }
