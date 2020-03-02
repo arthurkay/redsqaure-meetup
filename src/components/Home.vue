@@ -77,7 +77,7 @@ export default {
       const options = {
         roomName: room,
         width: elem.offsetWidth - 30,
-        height: (elem.offsetWidthWidth * 9 ) / 16,
+        height: (elem.offsetWidth * 9) / 16,
         parentNode: document.querySelector('#meet')
       }
       const vidApi = new JitsiMeetExternalAPI(domain, options)
