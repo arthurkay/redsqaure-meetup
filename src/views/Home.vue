@@ -1,10 +1,14 @@
 <template>
   <div class="home">
     <!--// img alt="Vue logo" src="../assets/logo.png"> //-->
-    <HomeComponent
-      heading="RedSqaure Meetup"
-      msg="RedSqaure MeetUp | Online MeetUps"
-    />
+    <div class="container">
+      <div class="row">
+        <HomeComponent
+          heading="RedSqaure Meetup"
+          msg="Online Training | Online MeetUps | Online Conferencing"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
