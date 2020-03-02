@@ -75,8 +75,8 @@ export default {
       const domain = 'meet.jit.si'
       const options = {
         roomName: room,
-        width: 700,
-        height: 700,
+        width: 1024,
+        height: 500,
         parentNode: document.querySelector('#meet')
       }
       const vidApi = new JitsiMeetExternalAPI(domain, options)
@@ -94,9 +94,8 @@ export default {
   },
   computed: {
     function () {
-      //console.log(showJoin)
       return {
-        //
+        // Nothing to compute
       }
     }
   }
