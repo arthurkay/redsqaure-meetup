@@ -40,7 +40,7 @@
   </div>
 </template>
 
-<script src='https://meet.jit.si/external_api.js'></script>
+<script src=jvb_url></script>
 <script>
 export default {
   name: 'HomeComponent',
@@ -50,34 +50,33 @@ export default {
   },
   mounted () {
     const jitsi = document.createElement('script')
-    jitsi.setAttribute('src', 'https://meet.jit.si/external_api.js')
+    jitsi.setAttribute('src', this.jvb_url)
     document.head.appendChild(jitsi)
   },
   data () {
     return {
       name: 'user' + Math.random(10).toString(36).substr(9),
       room: Math.random(10000).toString(36).substr(2),
-      showJoin: true
+      showJoin: true,
+      jitsi_domain: process.env.VUE_APP_DOMAIN,
+      jvb_url: process.env.VUE_APP_JVB_URL
     }
   },
   methods: {
-     hideShowJoinRoom () {
+    hideShowJoinRoom () {
       if (this.showJoin) {
         this.showJoin = false
-        console.log(this.showJoin)
       }
       else {
         this.showJoin = true
-        console.log(this.showJoin)
       }
     },
     join (name, room) {
-      const elem = document.querySelector("#meet")
-      const domain = 'meet.jit.si'
+      const domain = this.jitsi_domain
       const options = {
         roomName: room,
-        width: elem.offsetWidth - 30,
-        height: (elem.offsetWidth * 9) / 16,
+        width: 1024,
+        height: 590,
         parentNode: document.querySelector('#meet')
       }
       const vidApi = new JitsiMeetExternalAPI(domain, options)
@@ -86,17 +85,17 @@ export default {
       vidApi.executeCommand('displayName', name)
       vidApi.on('readyToClose', (evt) => {
         this.hideShowJoinRoom()
-        //document.querySelector("#meet").style.display = 'none';
+        document.querySelector('#meet').style.display = 'none'
         // Possibly dipose room vidApi.dispose()
       })
       this.hideShowJoinRoom()
-      //document.querySelector("#meet").style.display = 'block';
+      document.querySelector('#meet').style.display = 'block'
     }
   },
   computed: {
     function () {
       return {
-        // Nothing to compute
+        // Nothing yet
       }
     }
   }
