@@ -6,7 +6,7 @@
       </div>
       <div class="col-md-12 body">
         <input type="hidden" v-model="showJoin" />
-          <div class="row" id="join-room" v-if="showJoin == true">
+          <div class="row" id="join-room" v-if="showJoin">
             <div class="col-md-4">
               <div class="form-group">
                 <label for="name">
@@ -33,51 +33,81 @@
             </div>
           </div>
           <div class="row">
-            <div id="meet">
-            </div>
+            <RoomComponent  v-if="!showJoin"/>
           </div>
       </div>
   </div>
 </template>
 
-<script src='https://meet.jit.si/external_api.js'></script>
+<script src=jvb_url></script>
 <script>
+import RoomComponent from '@/components/Room.vue'
 export default {
   name: 'HomeComponent',
+  components: {
+    RoomComponent
+  },
   props: {
     msg: String,
     heading: String
   },
   mounted () {
     const jitsi = document.createElement('script')
-    jitsi.setAttribute('src', 'https://meet.jit.si/external_api.js')
+    jitsi.setAttribute('src', this.jvb_url)
     document.head.appendChild(jitsi)
   },
   data () {
     return {
       name: 'user' + Math.random(10).toString(36).substr(9),
       room: Math.random(10000).toString(36).substr(2),
-      showJoin: true
+      showJoin: true,
+      jitsi_domain: process.env.VUE_APP_DOMAIN,
+      jvb_url: process.env.VUE_APP_JVB_URL,
+      appName: process.env.VUE_APP_NAME || 'RedSqaure MeetUp',
+      provider: process.env.VUE_APP_PROVIDER || 'Arthur Kalikiti'
     }
   },
   methods: {
-     hideShowJoinRoom () {
+    hideShowJoinRoom () {
       if (this.showJoin) {
         this.showJoin = false
-        console.log(this.showJoin)
       }
       else {
         this.showJoin = true
-        console.log(this.showJoin)
       }
     },
     join (name, room) {
-      const domain = 'meet.jit.si'
+      let showJoin = this.showJoin
+      this.hideShowJoinRoom()
+      // Give DOM time to process
+      let prom = new Promise((resolve, reject) => {
+      if (this.showJoin !== showJoin) {
+        resolve('success')
+      }
+      else {
+        reject('failed')
+      }
+      })
+
+      prom.then(result => {
+        this.makeAPICall(name, room)
+      }, err => {
+        alert('Err '+err.message)
+      })
+    },
+    makeAPICall(name, room) {
+      const domain = this.jitsi_domain
       const options = {
         roomName: room,
         width: 1024,
-        height: 500,
-        parentNode: document.querySelector('#meet')
+        height: 590,
+        parentNode: document.querySelector('#meet'),
+        interfaceConfigOverwrite: {
+          SHOW_JITSI_WATERMARK: false,
+          APP_NAME: this.appName,
+          NATIVE_APP_NAME: this.appName,
+          PROVIDER_NAME: this.provider
+        }
       }
       const vidApi = new JitsiMeetExternalAPI(domain, options)
       vidApi.executeCommand('toggleAudio', [])
@@ -85,17 +115,14 @@ export default {
       vidApi.executeCommand('displayName', name)
       vidApi.on('readyToClose', (evt) => {
         this.hideShowJoinRoom()
-        //document.querySelector("#meet").style.display = 'none';
         // Possibly dipose room vidApi.dispose()
       })
-      this.hideShowJoinRoom()
-      //document.querySelector("#meet").style.display = 'block';
     }
   },
   computed: {
     function () {
       return {
-        // Nothing to compute
+        // Nothing yet
       }
     }
   }
