@@ -63,8 +63,8 @@ export default {
       showJoin: true,
       jitsi_domain: process.env.VUE_APP_DOMAIN,
       jvb_url: process.env.VUE_APP_JVB_URL,
-      appName: process.env.VUE_APP_NAME || 'RedSqaure MeetUp',
-      provider: process.env.VUE_APP_PROVIDER || 'Arthur Kalikiti'
+      appName: process.env.VUE_APP_NAME || 'Living Open Source MeetUp',
+      provider: process.env.VUE_APP_PROVIDER || 'Living Open Source'
     }
   },
   methods: {

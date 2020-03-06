@@ -26,7 +26,7 @@
                <br />
                Also checkout the underlying video conferencing tool
                <a href="https://github.com/jitsi/docker-jitsi-meet">
-               (Jitsi on github</a> as well.
+               (Jitsi on github)</a> as well.
                <br />
                Its an open world of open source, feel free to contribute.
             </p>
