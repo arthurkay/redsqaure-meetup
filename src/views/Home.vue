@@ -4,7 +4,7 @@
     <div class="container">
       <div class="row">
         <HomeComponent
-          heading="Living Open Source Meetup"
+          heading="Living Open Source meetapp"
           msg="Online Training | Online MeetUps | Online Conferencing"
         />
       </div>

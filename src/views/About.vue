@@ -8,7 +8,7 @@
           </div>
           <div class="card-body">
             <p>
-              RedSqaure Meet is an open source live video conferencing service,
+              Living Open Source meetapp is an open source live video conferencing service,
               built on top of Jitsi.
               <br />
               Jitsi is a set of open-source projects that allows you to easily
