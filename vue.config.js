@@ -1,4 +1,4 @@
 module.exports = {
-  publicPath: './',
+  publicPath: '/redsqaure-meetup/',
   outputDir: 'docs'
 }
