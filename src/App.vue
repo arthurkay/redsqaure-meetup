@@ -3,7 +3,7 @@
     <div id="nav">
       <div class="top-bar shadow-lg p-3 mb-5 bg-white rounded">
         <span class="app-name">
-          <span class="text-white bg-danger">  Living Open Source </span>|meetapp
+          <span class="text-white bg-danger"> RedSqaure </span>| Meet
         </span>
         <span class="float-right">
           <router-link to="/">Home</router-link> |
